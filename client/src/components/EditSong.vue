@@ -71,7 +71,7 @@
         </v-alert>
       </v-flex>
 
-      <v-btn class="cyan" dark @click="create">Create Song</v-btn>
+      <v-btn class="cyan" dark @click="save">Save Song</v-btn>
 
     </v-flex>
   </v-layout>
@@ -101,7 +101,7 @@ export default {
     Panel
   },
   methods: {
-    async create () {
+    async save () {
       this.error = null
       const areAllFieldsFilledIn = Object
         .keys(this.song)
@@ -112,14 +112,27 @@ export default {
         return
       }
 
+      const songId = this.$store.state.route.params.songId
+
       try {
-        await SongService.post(this.song)
+        await SongService.put(this.song)
         this.$router.push({
-          name: 'songs'
+          name: 'songs',
+          params: {
+            songId
+          }
         })
       } catch (err) {
         console.log(err)
       }
+    }
+  },
+  async mounted () {
+    try {
+      const songId = this.$store.state.route.params.songId
+      this.song = (await SongService.show(songId)).data
+    } catch (err) {
+      console.log(err)
     }
   }
 }
