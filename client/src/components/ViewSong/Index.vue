@@ -5,7 +5,7 @@
         <song-metadata :song="song"/>
       </v-flex>
 
-      <v-flex xs6 class="ml-2 mt-2">
+      <v-flex xs6 class="ml-2">
         <you-tube :youtubeId="song.youtubeId"/>
       </v-flex>
     </v-layout>
@@ -28,12 +28,11 @@ import YouTube from './YouTube'
 import Lyrics from './Lyrics'
 import Tab from './Tab'
 import SongService from '@/services/SongService'
-import Panel from '@/components/Panel'
 
 export default {
   data () {
     return {
-      song: null
+      song: {}
     }
   },
   async mounted () {
@@ -41,7 +40,6 @@ export default {
     this.song = (await SongService.show(songId)).data
   },
   components: {
-    Panel,
     SongMetadata,
     YouTube,
     Lyrics,

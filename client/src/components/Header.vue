@@ -1,9 +1,6 @@
 <template>
   <v-toolbar fixed class="cyan" dark>
-    <router-link to="/" tag="v-toolbar-title" class="mr-4 home">TabTracker</router-link>
-    <!-- <v-toolbar-title class="mr-4" to="root">
-      TabTracker
-    </v-toolbar-title> -->
+    <router-link to="songs" tag="v-toolbar-title" class="mr-4 home">TabTracker</router-link>
 
     <v-toolbar-items>
       <v-btn flat dark :to="{name: 'songs'}">
@@ -14,11 +11,11 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn v-if="!$store.state.isUserLoggedIn" flat dark to="login">
+      <v-btn v-if="!$store.state.isUserLoggedIn" flat dark :to="{name: 'login'}">
         Login
       </v-btn>
 
-      <v-btn v-if="!$store.state.isUserLoggedIn" flat dark to="register">
+      <v-btn v-if="!$store.state.isUserLoggedIn" flat dark :to="{name: 'register'}">
         Sign Up
       </v-btn>
 
@@ -37,7 +34,7 @@ export default {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
       this.$router.push({
-        name: 'root'
+        name: 'songs'
       })
     }
   }

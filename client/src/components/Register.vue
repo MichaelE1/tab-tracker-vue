@@ -15,7 +15,9 @@
               :type="'password'"
             ></v-text-field>
             <br>
-            <div class="error" v-html="error" />
+            <v-alert v-model="error" dismissible type="error" icon="warning">
+              {{errorMsg}}
+            </v-alert>
             <br>
             <v-btn class="cyan" dark @click="register">Register</v-btn>
           </form>
@@ -27,18 +29,19 @@
 
 <script>
 import AuthenticationService from '@/services/AuthenticationService'
-import Panel from '@/components/Panel'
 
 export default {
   data () {
     return {
       email: '',
       password: '',
-      error: null
+      error: false,
+      errorMsg: ''
     }
   },
   methods: {
     async register () {
+      this.error = false
       try {
         const response = await AuthenticationService.register({
           email: this.email,
@@ -46,20 +49,17 @@ export default {
         })
         this.$store.dispatch('setToken', response.data.token)
         this.$store.dispatch('setUser', response.data.user)
+        this.$router.push({
+          name: 'songs'
+        })
       } catch (error) {
-        this.error = error.response.data.error
+        this.error = true
+        this.errorMsg = error.response.data.error
       }
     }
-  },
-  components: {
-    Panel
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .error {
-    color: red;
-  }
 </style>
