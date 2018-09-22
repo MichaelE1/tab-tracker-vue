@@ -1,6 +1,9 @@
 <template>
   <v-layout>
-    <v-flex xs6 offset-xs3>
+    <v-flex xs6>
+      <songs-bookmarks />
+    </v-flex>
+    <v-flex xs6 class="ml-2">
       <songs-search-panel />
       <songs-panel class="mt-2" />
     </v-flex>
@@ -9,6 +12,7 @@
 
 <script>
 import SongsPanel from './SongsPanel'
+import SongsBookmarks from './SongsBookmarks'
 import SongsSearchPanel from './SongsSearchPanel'
 import SongService from '@/services/SongService'
 export default {
@@ -19,7 +23,8 @@ export default {
   },
   components: {
     SongsPanel,
-    SongsSearchPanel
+    SongsSearchPanel,
+    SongsBookmarks
   },
   async mounted () {
     this.songs = (await SongService.index()).data

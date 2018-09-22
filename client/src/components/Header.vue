@@ -1,6 +1,6 @@
 <template>
   <v-toolbar fixed class="cyan" dark>
-    <router-link to="songs" tag="v-toolbar-title" class="mr-4 home">TabTracker</router-link>
+    <router-link :to="{name: 'songs'}" tag="v-toolbar-title" class="mr-4 home">TabTracker</router-link>
 
     <v-toolbar-items>
       <v-btn flat dark :to="{name: 'songs'}">
